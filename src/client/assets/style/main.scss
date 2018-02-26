@@ -1,0 +1,107 @@
+html {
+    cursor: default !important;
+}
+
+body {
+    font: 14px "PingFangSC-Light";
+
+    min-width: 875px;
+}
+
+body.lock {
+    overflow: hidden;
+}
+
+#asd{
+    min-height: 100vh;
+}
+
+#asd > div {
+    height: 100%;
+    background-color: #eeeeee;
+}
+
+.panel {
+    position: relative;
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+}
+
+/* some common attr */
+button:focus,
+button:active,
+input:focus,
+input:active {
+    outline: none;
+}
+
+// get from web
+a{
+    text-decoration: none;
+}
+img{
+    border: 0;
+    cursor: pointer;
+}
+ul,ol{
+    list-style: none;
+}
+input,textarea{
+    outline: none;
+}
+/* chrome谷歌浏览器，Safari苹果浏览器 */
+
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+    color: #bcbcbc;
+}
+
+/* firefox火狐浏览器 */
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+    color: #bcbcbc;
+} 
+input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+    color: #bcbcbc;
+}
+
+/* IE浏览器 */
+input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+    color: #bcbcbc;
+}
+    /* chrome谷歌浏览器，Safari苹果浏览器 */
+
+textarea::-webkit-input-placeholder { /* WebKit browsers */ 
+    color: #bcbcbc;
+}
+
+/* firefox火狐浏览器 */
+textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+    color: #bcbcbc;
+} 
+textarea::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+    color: #bcbcbc;
+}
+
+/* IE浏览器 */
+textarea:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+    color: #bcbcbc;
+}
+.left{
+    float: left;
+}
+.right{
+    float:right;
+}
+.clearfix:after{
+    clear: both;
+    content: '';
+    display: block;
+}
+.clearfix{
+    zoom: 1;
+}
+.hidden{
+    display: none;
+}
