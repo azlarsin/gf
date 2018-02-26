@@ -10,5 +10,5 @@ const store = configureStore();
 
 ReactDom.render(
     <Root store={ store } />,
-    document.getElementById('qwe')
+    document.getElementById('asd')
 );

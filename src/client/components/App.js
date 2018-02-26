@@ -46,6 +46,7 @@ class App extends React.Component {
     render() {
         return (
             <div className='root'>
+                <div className='body'></div>
                 <Chat />
             </div>
         )

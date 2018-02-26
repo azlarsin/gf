@@ -26,13 +26,13 @@ io.on('connection', socket => {
     console.log('new connection => ', socket.id);
 
     socket.on('msg', (data, cb) => {
-        // console.log(io.clients());
-        // socket.emit('receive-msg', msg);
+        console.log(io.clients());
+        
         try {
             // do sth with db
-
+            io.emit('broadcast', data);
         } catch(e) {
-            
+            cb({ status: 'error' });
         }
         cb(data);
     });

@@ -15,7 +15,7 @@ const configureStore = () => {
             // predicate: (getState, action) => types.CACHE_HISTORY === action.type,
             duration: true
         });
-        mws.push( logger );
+        // mws.push( logger );
     // }
 
     // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

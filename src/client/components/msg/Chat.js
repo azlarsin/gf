@@ -17,26 +17,42 @@ class Chat extends React.Component {
         };
     }
 
+    componentDidMount() {
+        const { socket } = this.context;
+
+        socket.on('broadcast', (data) => {
+            const { dispatch } = this.props;
+
+            dispatch(MsgActions.receive(data));
+        });
+    }
+
     getChildContext() {
         return {
             dispatch: this.props.dispatch
         };
     }
 
-    handleClick = (e) => {
+    handleClick = e => {
         let { dispatch } = this.props;
         let text = this.refs.msgInput.value;
         
         if(text) {
             dispatch(MsgActions.send(text));
+            this.refs.msgInput.value = '';
         }
+
+        let msgList = this.refs.msgList;
+        setTimeout(() => {
+            msgList.scrollTo(0, msgList.scrollHeight);
+        }, 0);
     }
 
     render() {
         let { msgs } = this.props;
         return (
             <div className='chat-panel panel'>
-                <section className='msgs'>
+                <section className='msgs' ref='msgList'>
                     {
                         msgs.map(msg => 
                             <MessageBox key={ 'msg' + uuid() } msg={ msg } />
@@ -44,7 +60,12 @@ class Chat extends React.Component {
                     }
                 </section>
                 <section className='send-box'>
-                    <input type='text' placeholder='type something...' ref='msgInput' />
+                    <input 
+                        type='text' 
+                        placeholder='type something...' 
+                        ref='msgInput' 
+                        onKeyDown = { e => e.keyCode === 13 ? this.handleClick() : null }
+                    />
                     <button onClick={ this.handleClick }>
                         Send
                     </button>
@@ -60,6 +81,10 @@ const mapStateToProps = (state) => {
     return {
         msgs: msg
     };
+};
+
+Chat.contextTypes = {
+    socket: PropTypes.Object
 };
 
 Chat.childContextTypes = {

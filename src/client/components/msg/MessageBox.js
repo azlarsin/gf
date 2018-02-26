@@ -2,21 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { OrderedMap } from "immutable";
 
-class MessageBox extends React.Component {
-    render() {
-        let { msg } = this.props;
+const MessageBox = (props) => {
+    
+    let { msg } = props;
 
-        return (
-            <figure className={ 'msg-box' + (msg.self && ' self') }>
+    return (
+        <div>
+            <figure className={ 'msg-box' + (msg.self === true ? ' self' : '') }>
                 <div className='avatar'>
-                    <img className="" src={ msg.userId } />
+                    <img className="" src={ require('@/assets/static/images/ace.gif') } />
                 </div>
                 <div className='msg'>
-                    { msg.text }
+                    <div className='info'>
+                        { 'azlar 20:00'}
+                    </div>
+                    <div className='text'>
+                        { msg.text }
+                    </div>
                 </div>
             </figure>
-        )
-    }
+        </div>
+    )
+
 }
 
 export default MessageBox;

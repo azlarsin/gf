@@ -3,7 +3,7 @@ import socket from '@/socket';
 
 export default {
     send(text = null) {
-        return async (dispatch, getState) => {
+        return (dispatch, getState) => {
 
             let state = getState();
             
@@ -12,14 +12,24 @@ export default {
                 text: text
             };
 
-            await socket.post('msg', msg, data => {
-                console.log(data);
-                
+            socket.post('msg', { ...msg }, data => {
                 dispatch({
                     type: types.SEND_MESSAGE,
-                    msg
+                    msg: {
+                        ...msg,
+                        self: msg.userId === 1
+                    }
                 });
             });
+        }
+    },
+
+    receive(data = {}) {
+        return {
+            type: types.RECEIVE_MESSAGE,
+            msg: {
+                ...data
+            }
         }
     }
 }
