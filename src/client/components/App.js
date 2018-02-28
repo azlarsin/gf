@@ -36,9 +36,9 @@ class App extends React.Component {
 
     getChildContext() {
         return {
-            ipcRenderer: this.ipcRenderer || null,
-            remote: this.remote || null,
-            platform: this.platform,
+            // ipcRenderer: this.ipcRenderer || null,
+            // remote: this.remote || null,
+            // platform: this.platform,
             socket: this.socket
         };
     }
