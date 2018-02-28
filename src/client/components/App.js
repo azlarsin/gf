@@ -18,11 +18,11 @@ class App extends React.Component {
             // let { dispatch } = this.props;
 
             //electron ipc
-            const { ipcRenderer, remote } = require('electron');
-            this.ipcRenderer = ipcRenderer;
-            this.remote = remote;
+            // const { ipcRenderer, remote } = require('electron');
+            // this.ipcRenderer = ipcRenderer;
+            // this.remote = remote;
 
-            this.platform = process.platform;
+            // this.platform = process.platform;
         }
     }
 
@@ -54,9 +54,9 @@ class App extends React.Component {
 }
 
 App.childContextTypes = {
-    ipcRenderer: PropTypes.object,
-    remote: PropTypes.object,
-    platform: PropTypes.string,
+    // ipcRenderer: PropTypes.object,
+    // remote: PropTypes.object,
+    // platform: PropTypes.string,
     socket: PropTypes.object
 };
 
