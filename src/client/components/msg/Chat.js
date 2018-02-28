@@ -46,14 +46,14 @@ class Chat extends React.Component {
             this.refs.msgInput.value = '';
         }
 
-        this.scrollMsgToBottom();
+        // this.scrollMsgToBottom();
     }
 
     scrollMsgToBottom = () => {
         let msgList = this.refs.msgList;
-        setTimeout(() => {
-            msgList.scrollTo(0, msgList.scrollHeight);
-        }, 0);
+        // setTimeout(() => {
+        msgList.scrollTo(0, msgList.scrollHeight);
+        // }, 0);
     }
 
     render() {
