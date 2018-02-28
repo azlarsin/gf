@@ -3,7 +3,7 @@ import promise from 'redux-promise';
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk';
 
-import GF from '@/reducers';
+import GF from '@c/reducers';
 
 const configureStore = () => {
     // const persistedState = loadState();

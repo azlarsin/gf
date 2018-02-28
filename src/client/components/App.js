@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Chat from '@/components/msg/Chat';
-import socket from '@/socket';
+import Chat from '@c/components/msg/Chat';
+import socket from '@c/socket';
 
 class App extends React.Component {
     constructor(props) {

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import App from '@/components/App';
+import App from '@c/components/App';
 
 const Root = ({ store }) => (
     <Provider store={ store }>

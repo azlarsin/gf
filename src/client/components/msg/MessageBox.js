@@ -10,14 +10,16 @@ const MessageBox = (props) => {
         <div>
             <figure className={ 'msg-box' + (msg.self === true ? ' self' : '') }>
                 <div className='avatar'>
-                    <img className="" src={ require('@/assets/static/images/ace.gif') } />
+                    <img className="" src={ require('@c/assets/static/images/ace.gif') } />
                 </div>
                 <div className='msg'>
                     <div className='info'>
                         { 'azlar 20:00'}
                     </div>
                     <div className='text'>
-                        { msg.text }
+                        <span>
+                            { msg.text }
+                        </span>
                     </div>
                 </div>
             </figure>

@@ -1,5 +1,5 @@
-import * as types from "@/const/ActionTypes";
-import socket from '@/socket';
+import * as types from "@c/const/ActionTypes";
+import socket from '@c/socket';
 
 export default {
     send(text = null) {
@@ -12,7 +12,7 @@ export default {
                 text: text
             };
 
-            socket.post('msg', { ...msg }, data => {
+            socket.post('message', { path: 'send', data: {...msg} }, data => {
                 dispatch({
                     type: types.SEND_MESSAGE,
                     msg: {

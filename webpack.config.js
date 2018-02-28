@@ -34,7 +34,7 @@ let config = {
     resolve: {
         extensions: ['.js', '.json'],
         alias: {
-            '@': clientPath
+            '@c': clientPath
         }
     },
     module: {

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { OrderedSet } from "immutable";
 
-import { uuid } from '@/util';
+import { uuid } from '@c/util';
 import MessageBox from './MessageBox';
 
-import MsgActions from '@/actions/MsgActions';
+import MsgActions from '@c/actions/MsgActions';
 
 class Chat extends React.Component {
     constructor(props) {
@@ -20,10 +20,12 @@ class Chat extends React.Component {
     componentDidMount() {
         const { socket } = this.context;
 
-        socket.on('broadcast', (data) => {
+        socket.on('msg', (data) => {
             const { dispatch } = this.props;
 
             dispatch(MsgActions.receive(data));
+
+            this.scrollMsgToBottom();
         });
     }
 
@@ -42,6 +44,10 @@ class Chat extends React.Component {
             this.refs.msgInput.value = '';
         }
 
+        this.scrollMsgToBottom();
+    }
+
+    scrollMsgToBottom = () => {
         let msgList = this.refs.msgList;
         setTimeout(() => {
             msgList.scrollTo(0, msgList.scrollHeight);
@@ -60,7 +66,7 @@ class Chat extends React.Component {
                     }
                 </section>
                 <section className='send-box'>
-                    <input 
+                    <textarea
                         type='text' 
                         placeholder='type something...' 
                         ref='msgInput' 
@@ -84,7 +90,7 @@ const mapStateToProps = (state) => {
 };
 
 Chat.contextTypes = {
-    socket: PropTypes.Object
+    socket: PropTypes.object
 };
 
 Chat.childContextTypes = {
