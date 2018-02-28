@@ -13,7 +13,7 @@ const IS_PRODUCTION = NODE_ENV === 'production';
 
 const clientPath = path.resolve(__dirname, "./src/client");
 const assetsPath = function (_path) {
-    return path.posix.join('assets/static', _path)
+    return path.posix.join('static', _path)
 };
 
 let pages = ['client'];
