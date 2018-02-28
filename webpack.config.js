@@ -67,7 +67,8 @@ let config = {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: assetsPath('img/[name].[hash:7].[ext]')
+                    name: assetsPath('img/[name].[hash:7].[ext]'),
+                    publicPath: 'assets/'
                 }
             },
             {
@@ -75,7 +76,8 @@ let config = {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: assetsPath('media/[name].[hash:7].[ext]')
+                    name: assetsPath('media/[name].[hash:7].[ext]'),
+                    publicPath: 'assets/'
                 }
             },
             {
@@ -83,7 +85,8 @@ let config = {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: assetsPath('fonts/[name].[hash:7].[ext]')
+                    name: assetsPath('fonts/[name].[hash:7].[ext]'),
+                    publicPath: 'assets/'
                 }
             }
         ],
