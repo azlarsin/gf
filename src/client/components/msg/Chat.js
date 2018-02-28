@@ -69,8 +69,7 @@ class Chat extends React.Component {
                     <textarea
                         type='text' 
                         placeholder='type something...' 
-                        ref='msgInput' 
-                        onKeyDown = { e => e.keyCode === 13 ? this.handleClick() : null }
+                        ref='msgInput'
                     />
                     <button onClick={ this.handleClick }>
                         Send

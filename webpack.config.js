@@ -68,7 +68,7 @@ let config = {
                 options: {
                     limit: 10000,
                     name: assetsPath('img/[name].[hash:7].[ext]'),
-                    publicPath: 'assets/'
+                    publicPath: IS_PRODUCTION ? 'assets/' : ''
                 }
             },
             {
@@ -77,7 +77,7 @@ let config = {
                 options: {
                     limit: 10000,
                     name: assetsPath('media/[name].[hash:7].[ext]'),
-                    publicPath: 'assets/'
+                    publicPath: IS_PRODUCTION ? 'assets/' : ''
                 }
             },
             {
@@ -86,7 +86,7 @@ let config = {
                 options: {
                     limit: 10000,
                     name: assetsPath('fonts/[name].[hash:7].[ext]'),
-                    publicPath: 'assets/'
+                    publicPath: IS_PRODUCTION ? 'assets/' : ''
                 }
             }
         ],
