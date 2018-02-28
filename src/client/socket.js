@@ -2,7 +2,7 @@
 
 const io = require('socket.io-client');
 
-const serverUrl = 'http://localhost:3000';
+const serverUrl = `http://${window.location.host}:3000`;
 let platformSocketParam = { };
 
 function regSocket(socket) {
