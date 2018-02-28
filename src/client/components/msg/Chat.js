@@ -23,10 +23,12 @@ class Chat extends React.Component {
         socket.on('msg', (data) => {
             const { dispatch } = this.props;
 
-            dispatch(MsgActions.receive(data));
-
-            this.scrollMsgToBottom();
+            dispatch(MsgActions.receive(data));            
         });
+    }
+
+    componentDidUpdate() {
+        this.scrollMsgToBottom();
     }
 
     getChildContext() {
