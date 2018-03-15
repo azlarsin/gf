@@ -11,10 +11,10 @@ const configureStore = () => {
     const mws = [ promise, thunk, testMws ];
 
     // if(process.env.NODE_ENV !== 'production') {
-        const logger = createLogger({
-            // predicate: (getState, action) => types.CACHE_HISTORY === action.type,
-            duration: true
-        });
+    const logger = createLogger({
+        // predicate: (getState, action) => types.CACHE_HISTORY === action.type,
+        duration: true
+    });
         // mws.push( logger );
     // }
 
@@ -29,7 +29,7 @@ const configureStore = () => {
 const testMws = store => next => action => {
     let result = next(action);
     let state = store.getState();
-
+    console.log('here');
     return result;
 };
 

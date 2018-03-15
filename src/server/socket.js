@@ -1,3 +1,4 @@
+/*eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
 
 const routes = require('@s/routes');
 
@@ -10,14 +11,15 @@ module.exports =  io => {
     io.on('connection', async socket => {
         console.log('new connection => ', socket.id);
 
-        let room = await routes.joinRoom.call({
+        // here is only one room named 'HALL' now
+        let room = await routes.sys.joinRoom.call({
             io,
             socket
         });
 
-        socket.__room = 'HALL';
+        socket.__room = room;
         
-        const channels = ['message'];
+        const channels = ['message', 'game','sys'];
         channels.forEach(channel => {
             socket.on(channel, (params, cb) => {
                 // console.log('here');
@@ -28,7 +30,7 @@ module.exports =  io => {
                     cb
                 });
             });
-        })
+        });
 
         // socket.on('msg', (params, cb) => {
         //     routes['msg'] && routes['msg'][params.path].call({
@@ -43,5 +45,7 @@ module.exports =  io => {
             console.log('some one disconnect');
             // router.handle(io, socket, { method: 'DELETE', path: '/auth', params: { } }, () => { });
         });
+
+        return room;
     });
 };

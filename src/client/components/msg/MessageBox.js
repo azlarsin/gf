@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { OrderedMap } from "immutable";
 
-const MessageBox = (props) => {
-    
+const MessageBox = props => {
     let { msg } = props;
-
     return (
         <div>
             <figure className={ 'msg-box' + (msg.self === true ? ' self' : '') }>
@@ -24,8 +21,11 @@ const MessageBox = (props) => {
                 </div>
             </figure>
         </div>
-    )
+    );
+};
 
-}
+MessageBox.propTypes = {
+    msg: PropTypes.object
+};
 
 export default MessageBox;

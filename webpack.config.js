@@ -32,7 +32,7 @@ let config = {
         "electron": "electron"
     },
     resolve: {
-        extensions: ['.js', '.json'],
+        extensions: ['.js', '.json', '.jsx'],
         alias: {
             '@c': clientPath
         }

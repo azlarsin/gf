@@ -3,7 +3,7 @@
 const io = require('socket.io-client');
 
 const serverUrl = `http://${window.location.hostname}:3000`;
-let platformSocketParam = { };
+// let platformSocketParam = { };
 
 function regSocket(socket) {
     console.log(socket);

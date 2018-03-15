@@ -1,0 +1,80 @@
+$offsuits: a b c d;
+$dict: (
+  a: 0,
+  b: 1,
+  c: 2,
+  d: 3
+);
+$cardWidth: 83.5777777px;
+$cardHeight: 121.755555px;
+$retract: 16px;
+
+.poker-panel {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1;
+  height: 100%;
+  padding: 12px;
+
+  .cards {
+    width: 300px;
+    display: flex;
+    flex-direction: row-reverse;
+
+    
+    @for $i from 2 through 3 {  
+      > div.card-wrap:nth-child(#{$i}) {
+        transform: translateX(#{($i - 1) * $retract}) translateY(-#{$i/3}px);
+      }
+    }
+
+  }
+
+  .card-wrap {
+    width: $cardWidth;
+    height: $cardHeight;
+    display: flex;
+    // margin: 10px; // tmp
+    cursor: pointer;
+    perspective: 100px;
+
+    .card {
+      flex: 1;
+      background-size: 1088px auto!important;
+      background-image: url('../static/images/poker.png');
+      border-radius: 5px;
+      box-shadow: 0 0 0 2px rgba(0,0,20,.8), 0 0 5px 5px rgba(0,0,20,.2);
+      
+      // default: bg
+      background-position: -($cardWidth * 2) $cardHeight;
+    }
+
+    .card.bg.joker {
+      background-position: 0 $cardHeight;
+    }
+    .card.bg.joker-l {
+      background-position: -$cardWidth $cardHeight;
+    }
+
+    @for $i from 1 through 13 {
+      @each $color in $offsuits {
+
+        $width: $cardWidth * ($i - 1);
+        $height: map-get($dict, $color) * $cardHeight;
+        
+        .card.#{$color}#{$i} {
+          @if $color == 'b' {
+              background-position: -($width + .25) -(#{$height});
+          }
+          @else if $color == 'd' {
+              background-position: -$width -(#{$height - .8});
+          }
+          @else{
+              background-position: -$width -(#{$height});
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 import Root from '@c/components/Root';
 import configureStore from '@c/store/configureStore';
 
-require("@c/assets/style/main.scss");
+require('@c/assets/style/main.scss');
 
 const store = configureStore();
 

@@ -1,7 +1,9 @@
+/* eslint react/prop-types: 0 */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { OrderedSet } from "immutable";
+import { OrderedSet } from 'immutable';
 
 import { uuid } from '@c/util';
 import MessageBox from './MessageBox';
@@ -15,11 +17,13 @@ class Chat extends React.Component {
         this.state = {
             msgs: props.msgs || OrderedSet()
         };
+
+        this.msgList;
+        this.msgInput;
     }
 
     componentDidMount() {
         const { socket } = this.context;
-
         socket.on('msg', (data) => {
             const { dispatch } = this.props;
 
@@ -28,6 +32,8 @@ class Chat extends React.Component {
     }
 
     componentDidUpdate() {
+        // todo, using this.dom.scrollIntoView in <MessageBox />
+        
         this.scrollMsgToBottom();
     }
 
@@ -37,48 +43,49 @@ class Chat extends React.Component {
         };
     }
 
-    handleClick = e => {
+    handleClick = () => {
         let { dispatch } = this.props;
-        let text = this.refs.msgInput.value;
+        let text = this.msgInput.value;
         
         if(text) {
             dispatch(MsgActions.send(text));
-            this.refs.msgInput.value = '';
+            this.msgInput.value = '';
         }
-
-        // this.scrollMsgToBottom();
     }
 
     scrollMsgToBottom = () => {
-        let msgList = this.refs.msgList;
-        // setTimeout(() => {
-        msgList.scrollTo(0, msgList.scrollHeight);
-        // }, 0);
+        let msgList = this.msgList;
+        msgList && msgList.scrollTo(0, msgList.scrollHeight);
     }
 
     render() {
         let { msgs } = this.props;
         return (
             <div className='chat-panel panel'>
-                <section className='msgs' ref='msgList'>
-                    {
-                        msgs.map(msg => 
-                            <MessageBox key={ 'msg' + uuid() } msg={ msg } />
-                        )
-                    }
-                </section>
-                <section className='send-box'>
-                    <textarea
-                        type='text' 
-                        placeholder='type something...' 
-                        ref='msgInput'
-                    />
-                    <button onClick={ this.handleClick }>
-                        Send
-                    </button>
-                </section>
+                <div>
+                    <section 
+                        className='msgs' 
+                        ref={ dom => this.msgList=dom }
+                    >
+                        {
+                            msgs.map(msg => 
+                                <MessageBox key={ 'msg' + uuid() } msg={ msg } />
+                            )
+                        }
+                    </section>
+                    <section className='send-box'>
+                        <textarea
+                            type='text' 
+                            placeholder='type something...' 
+                            ref={ dom => this.msgInput=dom }
+                        />
+                        <button onClick={ this.handleClick }>
+                            Send
+                        </button>
+                    </section>
+                </div>
             </div>  
-        )
+        );
     }
 }
 
@@ -93,12 +100,10 @@ const mapStateToProps = (state) => {
 Chat.contextTypes = {
     socket: PropTypes.object
 };
-
 Chat.childContextTypes = {
     dispatch: PropTypes.func
 };
 
 Chat.displayName = 'Chat';
-Chat = connect(mapStateToProps)(Chat);
 
-export default Chat;
+export default connect(mapStateToProps)(Chat);

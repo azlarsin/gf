@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Chat from '@c/components/msg/Chat';
+import Poker from '@c/components/poker/';
 import socket from '@c/socket';
+
+import SysActions from '@c/actions/SysActions';
 
 class App extends React.Component {
     constructor(props) {
@@ -28,7 +31,10 @@ class App extends React.Component {
 
     componentWillMount() {
         socket.on('connect', () => {
-            console.log(socket.id);
+            let { dispatch } = this.props;
+
+            dispatch(SysActions.getRoomId());
+
             
             // let a = socket.post("message", '123');
         });
@@ -39,25 +45,32 @@ class App extends React.Component {
             // ipcRenderer: this.ipcRenderer || null,
             // remote: this.remote || null,
             // platform: this.platform,
-            socket: this.socket
+            socket: this.socket,
+            dispatch: this.props.dispatch
         };
     }
 
     render() {
         return (
             <div className='root'>
-                <div className='body'></div>
+                <div className='body'>
+                    <Poker />
+                </div>
                 <Chat />
             </div>
-        )
+        );
     }
 }
+App.propTypes = {
+    dispatch: PropTypes.func
+};
 
 App.childContextTypes = {
     // ipcRenderer: PropTypes.object,
     // remote: PropTypes.object,
     // platform: PropTypes.string,
-    socket: PropTypes.object
+    socket: PropTypes.object,
+    dispatch: PropTypes.func
 };
 
 export default connect()(App);

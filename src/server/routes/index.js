@@ -1,16 +1,10 @@
 
-const message = require("./msg");
-
-const HALL = 'HALL';
+const sys = require('./sys');
+const message = require('./msg');
+const game = require('./game');
 
 module.exports = {
-    joinRoom(roomId = HALL) {
-        this.socket.join(roomId);
-
-        return roomId;
-    },
-    getRooms() {
-        return this.socket.rooms;
-    },
-    message
+    sys,
+    message,
+    game
 };
