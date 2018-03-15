@@ -9,15 +9,6 @@ class MapActions extends React.Component{
         super(props);
     }
 
-    handleClick = action => {
-        let { dispatch } = this.props;
-        if(!dispatch) {
-            dispatch = this.context.dispatch;
-        }
-        
-        dispatch(action());
-    }
-
     render() {
         let { dispatch, actions } = this.props;
         if(!dispatch) {
@@ -30,7 +21,7 @@ class MapActions extends React.Component{
                     Object.keys(actions).map(actionName => 
                         <button 
                             key={ 'action-' + uuid() } 
-                            onClick={ this.handleClick.bind(this, actions[actionName]) }>
+                            onClick={ () => dispatch(actions[actionName]()) }>
                             { actionName }
                         </button>
                     )
