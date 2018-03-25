@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Chat from '@c/components/msg/Chat';
-import Poker from '@c/components/poker/';
+import GamePanel from '@c/components/game/';
 import socket from '@c/socket';
+
+import GameActions from '@c/actions/GameActions';
+import MapActions from '@c/components/test/MapActions';
 
 import SysActions from '@c/actions/SysActions';
 
@@ -54,7 +57,7 @@ class App extends React.Component {
         return (
             <div className='root'>
                 <div className='body'>
-                    <Poker />
+                    <GamePanel />
                 </div>
                 <Chat />
             </div>

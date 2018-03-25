@@ -35,18 +35,18 @@ class Cards extends React.Component {
                     cards.map((card, i) => 
                         <Card
                             no={ card.no } 
-                            index={i} 
-                            key={ 'my-card-' + uuid() } 
+                            index={ i } 
+                            key={ 'my-card-' + uuid() }
                         />)
                 }
-
-                <button onClick={ this.openAll }>
-                    open
-                </button>
             </div>
         );
     }
 }
+
+// <button onClick={ this.openAll }>
+// open
+// </button>
 
 Cards.propTypes = {
     cards: PropTypes.array

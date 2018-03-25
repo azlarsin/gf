@@ -15,8 +15,8 @@ const configureStore = () => {
         // predicate: (getState, action) => types.CACHE_HISTORY === action.type,
         duration: true
     });
-        // mws.push( logger );
-    // }
+    mws.push( logger );
+
 
     // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     return createStore(
@@ -29,7 +29,7 @@ const configureStore = () => {
 const testMws = store => next => action => {
     let result = next(action);
     let state = store.getState();
-    console.log('here');
+    
     return result;
 };
 

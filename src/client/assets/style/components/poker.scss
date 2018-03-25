@@ -9,19 +9,82 @@ $cardWidth: 83.5777777px;
 $cardHeight: 121.755555px;
 $retract: 16px;
 
-.poker-panel {
+.game-panel {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   flex: 1;
   height: 100%;
   padding: 12px;
+  
+
+  .box {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,255, .2);
+    position: relative;
+
+    .card-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: #{$cardWidth};
+      height: #{$cardHeight};
+      // transform: translate(-50%, -50%);
+      overflow: hidden;
+      pointer-events: none;
+      
+
+      .cards {
+        // width: #{$cardWidth};
+        display: block;
+        position: relative;
+
+        .card-wrap {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+    }
+  }
+  .cards_v2 {
+    // width: #{$cardWidth};
+    width: 300px;
+    height: 100%;
+    position: relative;
+    
+    .card-wrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      .card {
+        // box-shadow: none;
+      }
+    }
+    
+  }
+
+  .cards_v2.open {
+    width: 300px;
+
+    @for $i from 2 through 3 {  
+      > div.card-wrap:nth-child(#{$i}) {
+        transform: translateX(#{($i - 1) * $retract}) translateY(-#{$i/3}px);
+      }
+    }
+
+    .card-wrap {
+      // transition: transform .2s;
+    }
+  }
+
 
   .cards {
     width: 300px;
     display: flex;
     flex-direction: row-reverse;
-
     
     @for $i from 2 through 3 {  
       > div.card-wrap:nth-child(#{$i}) {
@@ -36,9 +99,11 @@ $retract: 16px;
     height: $cardHeight;
     display: flex;
     // margin: 10px; // tmp
-    cursor: pointer;
     perspective: 100px;
 
+    .card.self {
+      cursor: pointer;  
+    }
     .card {
       flex: 1;
       background-size: 1088px auto!important;
@@ -48,6 +113,7 @@ $retract: 16px;
       
       // default: bg
       background-position: -($cardWidth * 2) $cardHeight;
+      transition: box-shadow .2s;
     }
 
     .card.bg.joker {
@@ -55,6 +121,9 @@ $retract: 16px;
     }
     .card.bg.joker-l {
       background-position: -$cardWidth $cardHeight;
+    }
+    .card.bg.gradient {
+      background: linear-gradient(-90deg, rgba(255,0,0,.7), rgba(0,0,255,.8));
     }
 
     @for $i from 1 through 13 {

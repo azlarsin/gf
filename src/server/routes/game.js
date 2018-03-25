@@ -1,11 +1,35 @@
 
+// const SYS
+const { ROOM_HALL, CARDS } = require('@s/const/sys');
+const util = require('@s/util');
+const Immutable = require('immutable');
+
+const players = 1;  // 1 for debug
+let readyUsers = Immutable.Set();
+
 const game = {
-    ready(userId = '') {
-        console.log('someone is ready');
+    async ready(data) {
+        let { roomId, userId } = util.assignDataByObject(data, {
+            roomId: ROOM_HALL,
+            userId: ''
+        });
+        
+        readyUsers = readyUsers.add(userId);
+        
 
         
-        this.cb('22');
-        
+        if(readyUsers.size === players) {
+            // this.socket.to(roomId).broadcast.emit('game', userId);
+
+            // todo: 
+            // 1. all hands up (done by callback())
+            // 2. emit cards (game auto start)
+            
+        }
+        // update ready hands
+        await this.cb(readyUsers);
+
+        this.io.in(roomId).emit('GAME_START');
     },
     send() {
         // console.log('here', Object.keys(this));
@@ -19,7 +43,12 @@ const game = {
 
         // cb
         this.cb();
-    }
+    },
+
+    end() {
+        // 1. settle accounts
+        // 2. delete room 
+    },
 
 };
 

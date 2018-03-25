@@ -11,7 +11,7 @@ module.exports =  io => {
     io.on('connection', async socket => {
         console.log('new connection => ', socket.id);
 
-        // here is only one room named 'HALL' now
+        // here is only one default room named 'HALL' now
         let room = await routes.sys.joinRoom.call({
             io,
             socket
@@ -22,13 +22,23 @@ module.exports =  io => {
         const channels = ['message', 'game','sys'];
         channels.forEach(channel => {
             socket.on(channel, (params, cb) => {
-                // console.log('here');
-                routes[channel] && routes[channel][params.path].call({
-                    io,
-                    socket,
-                    data: params.data,
-                    cb
-                });
+                try {
+                    if(!routes[channel] || !routes[channel][params.path]) {
+                        console.error(channel, params.path);
+                    }
+    
+                    routes[channel] && 
+                    routes[channel][params.path] && 
+                    routes[channel][params.path].call({
+                        io,
+                        socket,
+                        cb
+                    },
+                    params.data);
+                }catch(e) {
+                    cb && cb(e);
+                    return e;
+                }
             });
         });
 

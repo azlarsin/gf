@@ -1,7 +1,7 @@
 import * as types from '@c/const/ActionTypes';
 import socket from '@c/socket';
 
-const PLAY = types.PLAY;
+const GAME = types.GAME;
 const MESSAGE = types.MESSAGE;
 const SYS = types.SYS;
 
