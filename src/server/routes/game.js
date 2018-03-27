@@ -1,11 +1,14 @@
-
 // const SYS
 const { ROOM_HALL, CARDS } = require('@s/const/sys');
 const util = require('@s/util');
 const Immutable = require('immutable');
+const Random = require('random-js')();
 
-const players = 1;  // 1 for debug
+const players = 3;  // 1 for debug
 let readyUsers = Immutable.Set();
+
+let cards;
+
 
 const game = {
     async ready(data) {
@@ -16,33 +19,37 @@ const game = {
         
         readyUsers = readyUsers.add(userId);
         
-
-        
         if(readyUsers.size === players) {
             // this.socket.to(roomId).broadcast.emit('game', userId);
 
             // todo: 
             // 1. all hands up (done by callback())
             // 2. emit cards (game auto start)
+            this.io.in(roomId).emit('GAME_START');
+            // this._assignCards();
+            cards = Immutable.fromJS(Random.shuffle([...CARDS]));
+
+            // await game._assignCards.call({
+            //     io: this.io,
+            //     socket: this.socket
+            // }, cards);
             
+            let id = Random.pick([...this.socket.__users.keys()]);
+            this.io.in(roomId).emit('GAME_TURN', {userId: id});
+
+
+            // this.io.in(roomId).emit('GAME_START');
         }
         // update ready hands
-        await this.cb(readyUsers);
-
-        this.io.in(roomId).emit('GAME_START');
+        await this.cb(readyUsers);        
     },
-    send() {
-        // console.log('here', Object.keys(this));
-
-        // todo: save msg to db
-
-    
-        // broadcast
-        let room = Object.keys(this.socket.rooms).pop();
-        this.socket.to(room).broadcast.emit('msg', this.data);
-
-        // cb
-        this.cb();
+    async _assignCards(cards) {
+        // let users = this.socket.__users;
+        // let cards = Immutable.fromJS({});
+        
+        // for(let k of users.keys()) {
+        //     cards.set()
+        // }
     },
 
     end() {

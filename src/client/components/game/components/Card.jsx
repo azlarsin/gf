@@ -69,22 +69,22 @@ class Card extends React.Component {
         return (
             <Motion style={{
                 rotate: spring(this.state.rotate ? -720 : 0, {stiffness: 120, damping: 14}), 
-                y: spring(no ? index * 25 : (this.state.animate ? 20: 0)),
+                translateX: spring(no ? index * 25 : (this.state.animate ? 20: 0)),
                 scale: spring(no ? 1 : (this.state.rotate ? 1.2 : 1), presets.gentle),
                 rotateX: spring(no ? 0 : (this.state.animate ? 0: 0)),
                 rotateY: spring(no ? 3 : (this.state.animate ? 15: 0), presets.wobbly),
                 gray: spring(self && [GAME_STATUS.dop, GAME_STATUS.watching].indexOf(status) !== -1 ? 100 : 0, {stiffness: 50, damping: 20})
             }}
             >
-                {({rotate, y, scale, gray, rotateX, rotateY}) =>
+                {({rotate, translateX, scale, gray, rotateX, rotateY}) =>
                     <div 
-                        className={ 'card' + (no ? (' ' + no) : '') + (self ? ' self' : '') }
+                        className={ 'card bg gradient' + (no ? (' ' + no) : '') + (self ? ' self' : '') }
                         onDoubleClick={ self ? this.handleClick.bind(this, no) : null }
                         onMouseOver={ this.handleAnimate.bind(this, true) }
                         onMouseLeave={ this.handleAnimate.bind(this, false, 500) }
                         draggable={ true }
                         style={{
-                            transform: `rotate(${rotate}deg) translate3d(${-y}px, 0, 0) scale(${scale}) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+                            transform: `rotate(${rotate}deg) translate3d(${-translateX}px, 0, 0) scale(${scale}) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
                             filter: `grayscale(${gray}%)`
                         }}
                     />

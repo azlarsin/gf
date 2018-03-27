@@ -1,16 +1,21 @@
+const Immutable = require('immutable');
 const { ROOM_HALL } = require('@s/const/sys');
 const util = require('@s/util');
 
 const sys = {
-    joinRoom(data) {
-        let { roomId } = util.assignDataByObject(data, {
+    async joinRoom(data) {
+        let { userId, roomId } = util.assignDataByObject(data, {
+            userId: null,
             roomId: ROOM_HALL
         });
+    
+        await this.socket.join(roomId);
 
-        this.socket.join(roomId);
-
+        this.socket.__users = this.socket.__users || Immutable.fromJS({});
+        this.socket.__users = this.socket.__users.set(userId);
+        
         if(this.cb && typeof this.cb === 'function') {
-            this.cb(this.getRooms());
+            this.cb(roomId);
         }
 
         return roomId;
@@ -23,6 +28,19 @@ const sys = {
 
         return rooms;
     },
+    getUsers() {
+        
+    },
+    async leaveRoom(data) {
+        let { userId, roomId } = util.assignDataByObject(data, {
+            userId: null,
+            roomId: ROOM_HALL
+        });
+        
+        await this.socket.leave(roomId);
+
+        this.socket.__users = this.socket.__users.delete(userId);
+    }
 };
 
 module.exports = sys;

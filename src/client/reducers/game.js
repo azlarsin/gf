@@ -4,6 +4,7 @@ import * as types from '@c/const/ActionTypes';
 import GAME_STATUS from '@c/const/GameStatus';
 
 const initialState = immutable.fromJS({
+    activeUserId: null,
     readyUsers: [],
     status: GAME_STATUS.unready
 });
@@ -28,6 +29,10 @@ export default ( state = initialState, action ) => {
 
     case GAME.STARTED: {
         return state.set('status', GAME_STATUS.started);
+    }
+
+    case GAME.SET_TURN: {
+        return state.set('activeUserId', action.userId);
     }
 
     case GAME.DROP: {

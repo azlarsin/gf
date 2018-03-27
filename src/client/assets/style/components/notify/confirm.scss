@@ -1,0 +1,101 @@
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+
+  background: rgba(0,0,0, .1);
+  border-radius: 4px;
+
+  .confirm-box {
+    width: 500px;
+    height: 230px;
+    background: rgba(255, 255, 255, .98);
+    border-radius: 4px;
+    z-index: 1;
+    padding-bottom: 28px;
+
+    display: flex;
+    flex-direction: column;
+
+    animation-duration: .3s;
+    animation-fill-mode: both;
+
+    .title {
+      height: 50px;
+      border-bottom: 1px solid #E1E1E1;
+      border-radius: 1px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 30px;
+
+      font-size: 16px;
+      color: #010101;
+
+      user-select: initial;
+    }
+
+    .body {
+      flex: 1;
+      padding: 20px 30px;
+      font-size: 14px;
+      color: #4A4A4A;
+
+      user-select: initial;
+    }
+
+    .footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      padding-right: 30px;
+
+      > div {
+        width: 100px;
+        height: 40px;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color .2s;
+      }
+
+      > div.ok {
+        background-color: #FE8896;
+        border-radius: 2px;
+        color: #fff;
+        margin-right: 30px;
+      }
+      > div.ok:hover {
+        background-color: #FF586D;
+      }
+
+      > div.cancel {
+        background-color: transparent;
+        border: 1px solid #979797;
+        border-radius: 2px;
+      }
+       > div.cancel:hover {
+         background-color: #F4F4F4;
+       }
+    }
+  }
+
+  .confirm-box.out {
+    animation-name: bounceOut;
+  }
+
+  .confirm-box.in {
+    animation-name: bounceIn;
+  }
+}

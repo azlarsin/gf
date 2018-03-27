@@ -16,6 +16,11 @@ export default ( state = initialState, action ) => {
         return state.set('roomId', id);
     }
 
+    case SYS.SET_USER_ID: {
+        const id = action.id || null;
+        return state.set('userId', id);
+    }
+
     default:
         return state;
     }

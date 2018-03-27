@@ -4,32 +4,32 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const cssnano = require("cssnano");
+const cssnano = require('cssnano');
 
 const NODE_ENV = process.env.NODE_ENV;
 process.env.BABEL_ENV = NODE_ENV;
 
 const IS_PRODUCTION = NODE_ENV === 'production';
 
-const clientPath = path.resolve(__dirname, "./src/client");
+const clientPath = path.resolve(__dirname, './src/client');
 const assetsPath = function (_path) {
-    return path.posix.join('static', _path)
+    return path.posix.join('static', _path);
 };
 
 let pages = ['client'];
 
 let config = {
     node: {
-        fs: "empty"
+        fs: 'empty'
     },
     entry: getEntry(),
     output: getOutput(),
     devtool: getDevtool(),
     plugins: getPlugins(),
     externals: {
-        "koa": "koa",
-        "socket.io": "socket.io",
-        "electron": "electron"
+        'koa': 'koa',
+        'socket.io': 'socket.io',
+        'electron': 'electron'
     },
     resolve: {
         extensions: ['.js', '.json', '.jsx'],
@@ -99,18 +99,18 @@ if(IS_PRODUCTION) {
 
 function getEntry () {
     let entry = {
-        "vendor": [
-            "immutable",
-            "react",
-            "react-dom",
-            "react-redux",
-            "react-router",
-            "react-router-dom",
-            "redux",
-            "redux-logger",
-            "redux-promise",
-            "redux-thunk",
-            "socket.io-client"
+        'vendor': [
+            'immutable',
+            'react',
+            'react-dom',
+            'react-redux',
+            'react-router',
+            'react-router-dom',
+            'redux',
+            'redux-logger',
+            'redux-promise',
+            'redux-thunk',
+            'socket.io-client'
         ]
     };
     pages.forEach(page => {
@@ -174,8 +174,8 @@ function getPlugins () {
                 }
             }),
             new webpack.optimize.CommonsChunkPlugin({
-                name: [ "vendor", "manifest" ],
-                path: path.resolve(__dirname, "./build", "assets"),
+                name: [ 'vendor', 'manifest' ],
+                path: path.resolve(__dirname, './build', 'assets'),
             }),
             new OptimizeCssAssetsPlugin({
                 cssProcessorOptions: {
@@ -192,7 +192,7 @@ function getPlugins () {
         ]);
     }
     pages.forEach(page => {
-        let fileName = page === 'client' && "index";
+        let fileName = page === 'client' && 'index';
         
         plugins.push(new HtmlWebpackPlugin({
             chunks: [page, 'vendor', 'manifest'],
@@ -208,7 +208,7 @@ function getCssLoaders (fallback) {
     // sass & css
     let use = [
         {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
                 sourceMap: true,
                 minimize: true
@@ -216,18 +216,19 @@ function getCssLoaders (fallback) {
 
         },
         {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
                 sourceMap: true,
                 plugins: [
                     autoprefixer, cssnano({
-                        discardComments: { removeAll: true }
+                        discardComments: { removeAll: true },
+                        reduceIdents: false
                     })
                 ]
             }
         },
         {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
                 sourceMap: true
             }
@@ -237,7 +238,7 @@ function getCssLoaders (fallback) {
         return ExtractTextPlugin.extract({
             fallback: fallback,
             use: use
-       })
+       });
     } else {
         return [{
             loader: fallback

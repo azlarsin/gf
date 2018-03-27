@@ -1,5 +1,6 @@
 import * as types from '@c/const/ActionTypes';
 import socket from '@c/socket';
+import NotifyActions from './NotifyActions';
 
 const GAME = types.GAME;
 const MESSAGE = types.MESSAGE;
@@ -10,7 +11,7 @@ export default {
             const state = getState();
             const sys = state.sys;
 
-            socket.post('game', { path: 'ready', data: { roomId: sys.get('roomId'), userId: parseInt(1 + Math.random() * 10) } }, data => {
+            socket.post('game', { path: 'ready', data: { roomId: sys.get('roomId'), userId: sys.get('userId') } }, data => {
                 dispatch(this.updateReadyCount(data));
             });
 
@@ -30,8 +31,12 @@ export default {
 
     // game start
     start() {
-        return {
-            type: GAME.START
+        return (dispatch) => {
+            dispatch(NotifyActions.setAlert('Game starting...'));
+            
+            dispatch({
+                type: GAME.START
+            });
         };
     },
 
@@ -42,6 +47,13 @@ export default {
         };
     },
     
+    setTurn(userId) {
+        return {
+            type: GAME.SET_TURN,
+            userId
+        };
+    },
+
     myTurn() {
 
     },

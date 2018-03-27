@@ -39,7 +39,7 @@ class Cards extends React.Component {
                 this.defaultStye
                 :
                 {
-                    translateX: spring(open ? prevStyles[i - 1].translateX + 64 : 0, {...presets.wobbly, precision: .1}),
+                    translateX: spring(open ? prevStyles[i - 1].translateX + 64 : this.defaultStye.translateX, {...presets.wobbly, precision: .1}),
                     translateY: spring(open ? prevStyles[i - 1].translateY + i * 2.5 / 3 : 0, {...presets.wobbly, precision: .0001}),
                 };
             

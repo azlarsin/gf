@@ -6,23 +6,37 @@ const MESSAGE = types.MESSAGE;
 const SYS = types.SYS;
 
 export default {
-    joinRoom(roomId = null) {
+    joinRoom(userId = 1, roomId = undefined) {
         return (dispatch) => {
-            
-            socket.post('sys', { path: 'joinRoom', data: { userId: 1, roomId: 'test' } }, data => {
-                console.log(data);
+
+            socket.post('sys', { path: 'joinRoom', data: { userId: userId, roomId } }, data => {
+                let roomId = data;
+
+                dispatch({
+                    type: SYS.UPDATE_ROOM,
+                    roomId: roomId  // tmp, for user could join multiple rooms
+                });
             });
         };
     },
 
     getRoomId() {
-        return (dispatch) => {
-            socket.post('sys', { path: 'getRooms', data: { userId: 1 } }, data => { 
+        return (dispatch, getState) => {
+            const { sys } = getState();
+            
+            socket.post('sys', { path: 'getRooms', data: { userId: sys.userId } }, data => { 
                 dispatch({
                     type: SYS.UPDATE_ROOM,
                     roomId: data.pop()  // tmp, for user could join multiple rooms
                 });
             });
+        };
+    },
+
+    setUserId(id) {
+        return {
+            type: SYS.SET_USER_ID,
+            id
         };
     }
 };

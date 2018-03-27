@@ -1,0 +1,27 @@
+
+.status-bar {
+  display: flex;
+  position: absolute;
+
+  width: 200px;
+  height: 50px;
+
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+
+  .hand {
+    flex: .5;
+
+    > svg path {
+      fill: rgba(0,0,0, .2);
+      transition: fill .2s;
+    }
+
+    &.up {
+      > svg path {
+        fill: rgba(0,0,0, .7);
+      }
+    }
+  }
+}

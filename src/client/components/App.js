@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 
 import Chat from '@c/components/msg/Chat';
 import GamePanel from '@c/components/game/';
+import Notify from '@c/components/notify';
 import socket from '@c/socket';
 
-import GameActions from '@c/actions/GameActions';
-import MapActions from '@c/components/test/MapActions';
+// import GameActions from '@c/actions/GameActions';
+// import MapActions from '@c/components/test/MapActions';
 
 import SysActions from '@c/actions/SysActions';
 
@@ -36,8 +37,11 @@ class App extends React.Component {
         socket.on('connect', () => {
             let { dispatch } = this.props;
 
-            dispatch(SysActions.getRoomId());
-
+            // dispatch(SysActions.getRoomId());
+            let userId = socket.id;
+            
+            dispatch(SysActions.joinRoom(userId));
+            dispatch(SysActions.setUserId(socket.id));
             
             // let a = socket.post("message", '123');
         });
@@ -58,6 +62,7 @@ class App extends React.Component {
             <div className='root'>
                 <div className='body'>
                     <GamePanel />
+                    <Notify />
                 </div>
                 <Chat />
             </div>

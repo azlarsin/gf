@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Motion, spring, pre } from 'react-motion';
+import { Motion, spring } from 'react-motion';
 
 import { uuid } from '@c/util';
 
@@ -59,8 +59,8 @@ class CardBox extends React.Component {
         return (
             <Motion 
                 style={{
-                    y: spring(GAME_STATUS.playing.indexOf(status) !== -1 ? (index === 0 ? 20 : index === 3 ? 80 : 50) : 50, {stiffness: 120, damping: 14, precision: 1}), 
-                    x: spring(GAME_STATUS.playing.indexOf(status) !== -1 ? (index === 1 ? 20 : index === 2 ? 80 : 50) : 50, {stiffness: 120, damping: 14, precision: 1}), 
+                    y: spring(GAME_STATUS.playing.indexOf(status) !== -1 ? (index === 0 ? 12 : index === 3 ? 85 : 50) : 50, {stiffness: 120, damping: 14, precision: 1}), 
+                    x: spring(GAME_STATUS.playing.indexOf(status) !== -1 ? (index === 1 ? 15 : index === 2 ? 85 : 50) : 50, {stiffness: 120, damping: 14, precision: 1}), 
                     translateX: -50,
                     translateY: -50
                 }}

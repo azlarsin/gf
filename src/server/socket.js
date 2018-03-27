@@ -12,12 +12,12 @@ module.exports =  io => {
         console.log('new connection => ', socket.id);
 
         // here is only one default room named 'HALL' now
-        let room = await routes.sys.joinRoom.call({
-            io,
-            socket
-        });
+        // let room = await routes.sys.joinRoom.call({
+        //     io,
+        //     socket
+        // });
 
-        socket.__room = room;
+        // socket.__room = room;
         
         const channels = ['message', 'game','sys'];
         channels.forEach(channel => {
@@ -51,11 +51,16 @@ module.exports =  io => {
         //     });
         // });
 
-        socket.on('disconnect', () => {
+        socket.on('disconnect', async () => {
             console.log('some one disconnect');
+
+            await routes.sys.leaveRoom.call({
+                io,
+                socket
+            });
+            
+            // console.log(socket.id);
             // router.handle(io, socket, { method: 'DELETE', path: '/auth', params: { } }, () => { });
         });
-
-        return room;
     });
 };
