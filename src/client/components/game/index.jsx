@@ -35,6 +35,26 @@ class GamePanel extends React.Component {
         const { socket, dispatch } = this.context;
         const GAME_EVENTS = EVENTS.GAME;
         
+        // update game data
+        socket.on(GAME_EVENTS.UPDATE_GAME_DATA, data => {
+            let { userData, sysInfo } = data;
+            
+            dispatch(GameActions.updateGameData(userData, sysInfo));
+        });
+
+        // set sits
+        socket.on(GAME_EVENTS.GAME_SITS, data => {
+            let { list } = data;
+
+            dispatch(GameActions.setSits(list));
+        });
+        
+        socket.on(GAME_EVENTS.GAME_UPDATE_READY, data => {
+            let { readyUsers } = data;
+        
+            dispatch(GameActions.updateReadyCount(readyUsers));
+        });
+
         // bind events to socket
         socket.on(GAME_EVENTS.GAME_START, () => {
             dispatch(GameActions.start());            
@@ -42,7 +62,7 @@ class GamePanel extends React.Component {
 
         socket.on(GAME_EVENTS.GAME_TURN, data => {
             let { userId } = data;
-            
+
             dispatch(GameActions.setTurn(userId));
         });
 
@@ -58,7 +78,7 @@ class GamePanel extends React.Component {
     }
     
     render(){
-        const { readyUsers, status } = this.props;
+        const { readyUsers, status, sits, userId } = this.props;
         
         return (
             <div className='game-panel'>
@@ -66,17 +86,16 @@ class GamePanel extends React.Component {
 
                 
                 <div className='box'>
+
                     {
-                        new Array(3).fill(null).map((v, i) => <CardBox index={ i } key={ 'card-box-' + i } />)
+                        sits.map((uid, i) => 
+                            <div  key={ 'card-box-wrap-' + i + '-' + uid}>
+                                <CardBox index={ i } userId={ uid } self={ uid === userId }/>
+                                <StatusBar userId={ uid } index={ i } />
+                            </div>
+                        )
                     }
 
-                    <StatusBar />
-                    <StatusBar />
-                    <StatusBar />
-                    <StatusBar />
-                    
-                    <CardBox index={ 3 } self={ true } />
-                    
                     <ControlPanel />
                 </div>
             </div>
@@ -86,11 +105,22 @@ class GamePanel extends React.Component {
 
 const mapStateToProps = (state) => {
     const { game, sys } = state;
-    
+    const userId = sys.get('userId');
+    const userData = game.get('userData');
+    const gameSysInfo = game.get('sysInfo');
+    const myInfo = userData.get(userId);
+    const cardsMap = game.get('cardsMap');
+
     return {
-        userId: sys.get('userId'),
+        userId: userId,
         status: game.get('status'),
-        readyUsers: game.get('readyUsers')
+        readyUsers: game.get('readyUsers'),
+        sits: game.get('sits'),
+        activeUserId: game.get('activeUserId'),
+        userData: userData,
+        myInfo,
+        gameSysInfo,
+        cardsMap
     };
 };
 

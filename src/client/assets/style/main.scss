@@ -15,9 +15,11 @@ body.lock {
 
 #asd {
   @import "root";
-  @import "components/status-bar";
+  @import "components/role-picker";
   @import "components/chat";
   @import "components/poker";
+  @import "components/status-bar";
+  @import "components/control-panel";
   @import "components/notify/main";
 }
 

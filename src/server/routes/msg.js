@@ -1,7 +1,7 @@
 
 const util = require('@s/util');
 
-const message = {
+const Message = {
     receive(data) {
         
     },
@@ -20,8 +20,19 @@ const message = {
 
         // cb
         this.cb();
+    },
+    sendSys(roomId = null, io = null, msg = '', socket = null) {
+        io = io || this.io || null;
+        roomId = !roomId ? (socket ? socket.__roomId : null) : roomId;
+
+        if(!io || !roomId || !msg) 
+            return ;
+
+        io.in(roomId).emit('msg', {
+            userId: 'sys',
+            text: msg
+        });
     }
+};
 
-}
-
-module.exports = message;
+module.exports = Message;

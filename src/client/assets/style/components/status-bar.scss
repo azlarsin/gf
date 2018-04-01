@@ -3,15 +3,36 @@
   display: flex;
   position: absolute;
 
-  width: 200px;
+  // width: 200px;
   height: 50px;
 
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #eee;
 
+  &.index-0 {
+    left: 78%;
+    top: 86%;
+  }
+  &.index-1 {
+    right: 10%;
+    top: 60%;
+  }
+  &.index-2 {
+    left: 50%;
+    top: 20%;
+  }
+  &.index-3 {
+    left: 10%;
+    top: 60%;
+  }
+
+  .name {
+    flex: .333333;
+  }
+  
   .hand {
-    flex: .5;
+    flex: .333333;
 
     > svg path {
       fill: rgba(0,0,0, .2);
@@ -23,5 +44,27 @@
         fill: rgba(0,0,0, .7);
       }
     }
+    &.hide {
+      > svg path {
+        fill: rgba(0,0,0, 0);
+      }
+    }
   }
+
+
+  .round {
+    flex: .333333;
+
+    > svg path {
+      fill: rgba(0,0,0, 0);
+      transition: fill .2s;
+    }
+
+    &.in {
+      > svg path {
+        fill: rgba(0,0,255, .7);
+      }
+    }
+  }
+
 }

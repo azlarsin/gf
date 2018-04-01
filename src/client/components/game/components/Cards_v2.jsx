@@ -24,6 +24,10 @@ class Cards extends React.Component {
         };
     }
 
+    componentWillReceiveProps(props, context) {
+        // console.log(this.props.cards, this.props.cards === props.cards);
+    }
+
     openAll = () => {
         var dblClickEvent= document.createEvent('MouseEvents'); 
         dblClickEvent.initEvent ('dblclick', true, true); 
@@ -48,7 +52,7 @@ class Cards extends React.Component {
     }
 
     render() {
-        const cards = this.state.cards;
+        const cards = this.props.cards;
         const { open, boxIndex } = this.props;
 
         return (
@@ -66,14 +70,14 @@ class Cards extends React.Component {
                         ref = { d => this.dom = d }
                     >
                         { styles.map(({ translateX, translateY }, i) => {
-                            let card = cards[i];
+                            let no = cards ? cards.get(i) : null;
                             // todo: setStarted at animation end (if need)
                             // if(!this.state.started && i === 2 && translateX === 128 && translateY === 2.5) {
                             //     this.setGameStatusStarted();
                             // }
                             return (
                                 <div 
-                                    className={ 'card-wrap' + (card.no ? '' : ' bg') }
+                                    className={ 'card-wrap' + (no ? '' : ' bg') }
                                     key={ `my-card-${boxIndex}-${i}` }
                                     style={{
                                         transform: `translateX(${translateX}px) translateY(${translateY}px)`,
@@ -81,8 +85,8 @@ class Cards extends React.Component {
                                     }}
                                 >
                                     <Card
-                                        no={ card.no } 
-                                        index={ i } 
+                                        no={ no } 
+                                        index={ i }
                                     />
                                 </div>
                             );
@@ -102,7 +106,7 @@ Cards.contextTypes = {
 };
 
 Cards.propTypes = {
-    cards: PropTypes.array,
+    cards: PropTypes.object,
     open: PropTypes.bool
 };
 

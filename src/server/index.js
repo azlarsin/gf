@@ -10,16 +10,24 @@ const app = new Koa();
 const server = require('http').Server(app.callback());
 const io = new socket(server);
 
+const configureGlobal = require('./global'); // tmp db
 const configureSocket = require('./socket');
+
 
 // response
 app.use(async ctx => {
     ctx.body = 'hi, there';
 });
 
-// configure socket
-configureSocket(io);
+(async () => {
+    
+    await configureGlobal(io);
+    
+    // configure socket
+    await configureSocket(io);
 
-server.listen(3000, () => {
-    console.log('listening on *:3000');
-});
+    server.listen(3000, () => {
+        console.log('listening on *:3000');
+    });
+})();
+

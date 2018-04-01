@@ -6,7 +6,7 @@
 
 // import * as CONST from '../const';
 
-export const MD5 = require("./lib/md5");
+export const MD5 = require('./lib/md5');
 
 const CheckTypes = {
     INT: 1,
@@ -21,7 +21,7 @@ const CheckTypes = {
 };
 
 
-export const MONTH_LIST = ["January","February","March","April","May","June","July","August","September", "October","November","December"];
+export const MONTH_LIST = ['January','February','March','April','May','June','July','August','September', 'October','November','December'];
 /**
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  *
@@ -68,37 +68,37 @@ export function check(val, type){
 
     var pass = false;
     switch (type){
-        case CheckTypes.INT:
-            pass = isNumber(val);
-            break;
+    case CheckTypes.INT:
+        pass = isNumber(val);
+        break;
 
-        case CheckTypes.STRING:
-            pass = isString(val);
-            break;
+    case CheckTypes.STRING:
+        pass = isString(val);
+        break;
 
-        case CheckTypes.ARRAY:
-            pass = isArray(val);
-            break;
+    case CheckTypes.ARRAY:
+        pass = isArray(val);
+        break;
 
-        case CheckTypes.PHONE:
-            pass = checkMobile(val);
-            break;
+    case CheckTypes.PHONE:
+        pass = checkMobile(val);
+        break;
 
-        case CheckTypes.DATE:
-            pass = isDate(val);
-            break;
+    case CheckTypes.DATE:
+        pass = isDate(val);
+        break;
 
-        case CheckTypes.EMAIL:
-            pass = isEmail(val);
-            break;
+    case CheckTypes.EMAIL:
+        pass = isEmail(val);
+        break;
 
 
-        case CheckTypes.__SAFE__:
-            pass = true;
-            break;
+    case CheckTypes.__SAFE__:
+        pass = true;
+        break;
 
-        default:
-            pass = false;
+    default:
+        pass = false;
     }
 
     return pass;
@@ -239,7 +239,7 @@ export const getNextUtil = (dom, to, type = 'ALL') => {
  */
 export function isElementInViewport (el) {
     //special bonus for those using jQuery
-    // if (typeof jQuery === "function" && el instanceof jQuery) {
+    // if (typeof jQuery === 'function' && el instanceof jQuery) {
     //     el = el[0];
     // }
 
@@ -277,7 +277,7 @@ export function scrollToTop(scrollDuration, target = 0) {
 export function getCharLength(str) {
     var c = 0.0;
     var unicode = 0;
-    if (str == null || str == "") {
+    if (str == null || str == '') {
         return 0;
     }
     var len = str.length;
@@ -333,9 +333,28 @@ export function subStrCh(str, start, end) {
 
 // generate an uuid
 export function uuid() {
-    return s4() + s4() + "-" + s4() + "-" + s4() + "-" +
-        s4() + "-" + s4() + s4() + s4();
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
 }
 function s4() {
     return Math.floor((1 + Math.random()) * 0x10000);
+}
+
+
+/**
+ * 
+ * @param {*} list 
+ * @param {*} my 
+ * 
+ * [1,2,3,4], 2 => [2,3,4,1]
+ * [1,2,3,4], 3 => [3,4,1,2]
+ */
+export function generateSits(list = [], my = null) {
+    let targetIndex = list.findIndex((v) => v === my);
+
+    if(targetIndex !== -1) {
+        return [].concat(list.slice(targetIndex), list.slice(0, targetIndex));
+    }
+
+    return list;
 }

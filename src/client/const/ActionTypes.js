@@ -27,14 +27,17 @@ export const NOTIFY = {
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  */
 export const GAME = {
+    UPDATE_GAME_DATA: 'UPDATE_GAME_DATA',
+    SET_SITS: 'SET_SITS',
     I_M_READY: 'I_M_READY',
     UPDATE_READY_HANDS: 'UPDATE_READY_HANDS',
     START: 'START',   // receive cards count
     STARTED: 'STARTED',   // start aimation end,
     SET_TURN: 'SET_TURN',
     MY_TURN: 'MY_TURN',
+    END_TURN: 'END_TURN',
     STUFFY: 'STUFFY',
-    LOOK: 'LOOK',   // request server for the real card(need to support one by one)
+    ASSIGN_CARDS: 'ASSIGN_CARDS',   // request server for the real card(need to support one by one)
     FOLLOW: 'FOLLOW',
     DROP: 'DROP'
 };

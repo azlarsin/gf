@@ -16,7 +16,12 @@ class MapActions extends React.Component{
         }
 
         return (
-            <div>
+            <div
+                style={{ 
+                    position: 'fixed',
+                    zIndex: 99999
+                }}
+            >
                 {
                     Object.keys(actions).map(actionName => 
                         <button 

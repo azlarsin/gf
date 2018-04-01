@@ -6,7 +6,6 @@ const serverUrl = `http://${window.location.hostname}:3000`;
 // let platformSocketParam = { };
 
 function regSocket(socket) {
-    console.log(socket);
     socket.__TOKEN__ = 'token';
     
     socket.post = function (path, data, cb) {

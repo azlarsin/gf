@@ -11,6 +11,7 @@ import socket from '@c/socket';
 // import MapActions from '@c/components/test/MapActions';
 
 import SysActions from '@c/actions/SysActions';
+import RolePicker from '@c/components/common/RolePicker';
 
 class App extends React.Component {
     constructor(props) {
@@ -31,20 +32,43 @@ class App extends React.Component {
 
             // this.platform = process.platform;
         }
+
+        this.state = {
+            pickRole: false
+        };
     }
 
     componentWillMount() {
-        socket.on('connect', () => {
-            let { dispatch } = this.props;
+        let userId = localStorage.getItem('user');
+        
+        if(!userId) {
+            this.setState({
+                pickRole: true
+            });
+        }else {
+            socket.on('connect', () => {
+                this.__bindSocket(userId);
+            });
+        }
+    }
 
-            // dispatch(SysActions.getRoomId());
-            let userId = socket.id;
-            
-            dispatch(SysActions.joinRoom(userId));
-            dispatch(SysActions.setUserId(socket.id));
-            
-            // let a = socket.post("message", '123');
+    handlePicker = (id) =>  {
+        let userId = id;
+        
+        localStorage.setItem('user', userId);
+
+        this.__bindSocket(userId);
+
+        this.setState({
+            pickRole: false
         });
+    }
+
+    __bindSocket = userId => {
+        let { dispatch } = this.props;
+
+        dispatch(SysActions.joinRoom(userId));
+        dispatch(SysActions.setUserId(userId));
     }
 
     getChildContext() {
@@ -58,6 +82,14 @@ class App extends React.Component {
     }
 
     render() {
+        if(this.state.pickRole) {
+            return (
+                <div className='root'>
+                    <RolePicker pickHandler={ this.handlePicker }/>
+                </div>
+            );
+        }
+
         return (
             <div className='root'>
                 <div className='body'>
@@ -69,6 +101,15 @@ class App extends React.Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    const { sys } = state;
+    const userId = sys.get('userId');
+
+    return {
+        userId
+    };
+};
+
 App.propTypes = {
     dispatch: PropTypes.func
 };
@@ -81,4 +122,4 @@ App.childContextTypes = {
     dispatch: PropTypes.func
 };
 
-export default connect()(App);
+export default connect(mapStateToProps)(App);

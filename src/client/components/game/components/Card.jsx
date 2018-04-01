@@ -18,10 +18,17 @@ class Card extends React.Component {
     componentWillReceiveProps(nextProps, nextContext) {
         let { status } = nextContext.rootState;
         let { self } = nextContext;
+        let { no } = nextProps;
 
+        // console.log(self, this.state.rotate, this.state.newNo);
         // drop animation
-        if(self && [GAME_STATUS.dop, GAME_STATUS.watching].indexOf(status) !== -1 && this.state.rotate && this.state.newNo) {
+        if(self && [GAME_STATUS.drop, GAME_STATUS.watching].indexOf(status) !== -1 && this.state.rotate && this.state.newNo) {
             this.handleClick();
+        }
+        
+        // open self
+        if(!this.state.newNo && no) {
+            this.handleClick(no);
         }
     }
 
@@ -45,7 +52,7 @@ class Card extends React.Component {
                 // todo: get card from server
                 setTimeout(() => {
                     this.setState({
-                        newNo: 'd' + parseInt(Math.random() * 12 + 1)
+                        newNo: no
                     });
                 }, 500);
             }); 
@@ -78,7 +85,7 @@ class Card extends React.Component {
             >
                 {({rotate, translateX, scale, gray, rotateX, rotateY}) =>
                     <div 
-                        className={ 'card bg gradient' + (no ? (' ' + no) : '') + (self ? ' self' : '') }
+                        className={ 'card' + (no ? (' ' + no) : '') + (self ? ' self' : '') }
                         onDoubleClick={ self ? this.handleClick.bind(this, no) : null }
                         onMouseOver={ this.handleAnimate.bind(this, true) }
                         onMouseLeave={ this.handleAnimate.bind(this, false, 500) }

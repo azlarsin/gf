@@ -1,7 +1,10 @@
 
 .alerts {
-  position: fixed;
-  bottom: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  // bottom: 0;
 
   .alert-box {
     min-width: 300px;

@@ -36,6 +36,7 @@ module.exports =  io => {
                     },
                     params.data);
                 }catch(e) {
+                    console.log('socket action error: ', e);
                     cb && cb(e);
                     return e;
                 }

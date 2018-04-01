@@ -39,10 +39,10 @@ class CardBox extends React.Component {
         
         if(!this.state.end && GAME_STATUS.playing.indexOf(status) !== -1 &&
         (
-            (index === 0 && y <= 25) || 
-            (index === 3 && y >= 75) || 
-            (index === 1 && x <= 25) || 
-            (index === 2 && x >= 75)
+            (index === 2 && y <= 25) || 
+            (index === 0 && y >= 75) || 
+            (index === 3 && x <= 25) || 
+            (index === 1 && x >= 75)
         )) {
             setTimeout(() => {
                 this.setState({
@@ -53,14 +53,16 @@ class CardBox extends React.Component {
     }
     
     render() {
-        let { status } = this.context.rootState;
-        let { index } = this.props;
+        let { status, cardsMap } = this.context.rootState;
+        let { index, userId } = this.props;
+
+        let cards = cardsMap.get(userId);
 
         return (
             <Motion 
                 style={{
-                    y: spring(GAME_STATUS.playing.indexOf(status) !== -1 ? (index === 0 ? 12 : index === 3 ? 85 : 50) : 50, {stiffness: 120, damping: 14, precision: 1}), 
-                    x: spring(GAME_STATUS.playing.indexOf(status) !== -1 ? (index === 1 ? 15 : index === 2 ? 85 : 50) : 50, {stiffness: 120, damping: 14, precision: 1}), 
+                    y: spring(GAME_STATUS.playing.indexOf(status) !== -1 ? (index === 2 ? 12 : index === 0 ? 85 : 50) : 50, {stiffness: 120, damping: 14, precision: 1}), 
+                    x: spring(GAME_STATUS.playing.indexOf(status) !== -1 ? (index === 3 ? 15 : index === 1 ? 85 : 50) : 50, {stiffness: 120, damping: 14, precision: 1}), 
                     translateX: -50,
                     translateY: -50
                 }}
@@ -85,6 +87,7 @@ class CardBox extends React.Component {
                             <Cards 
                                 open={ this.state.end } 
                                 boxIndex={ index } 
+                                cards={ cards }
                             />
                         </div>
                     );
@@ -104,7 +107,8 @@ CardBox.contextTypes = {
 };
 
 CardBox.propTypes = {
-    index: PropTypes.number
+    index: PropTypes.number,
+    userId: PropTypes.oneOfType(PropTypes.string, PropTypes.array)
 };
 
 export default CardBox;
