@@ -14,7 +14,6 @@ class StatusBar extends React.Component {
         let ready = readyUsers.has(userId);
         let inTurn = activeUserId === userId;
         
-
         return (
             <div className={ 'status-bar index-' + index }>
                 <div className='name'>

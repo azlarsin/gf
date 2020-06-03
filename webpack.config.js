@@ -238,7 +238,7 @@ function getCssLoaders (fallback) {
         return ExtractTextPlugin.extract({
             fallback: fallback,
             use: use
-       });
+        });
     } else {
         return [{
             loader: fallback

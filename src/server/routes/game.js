@@ -6,7 +6,7 @@ const util = require('@s/util');
 const Immutable = require('immutable');
 const Random = require('random-js')();
 
-const players = 3;  // 1 for debug
+const players = 1;  // 1 for debug
 let readyUsers = Immutable.Set();
 
 const Game = {
@@ -41,6 +41,8 @@ const Game = {
         if(prevReadyUsers === readyUsers) {
             return ;
         }
+
+        
 
         // update ready hands
         this.io.in(roomId).emit('GAME_UPDATE_READY', { readyUsers });
@@ -81,7 +83,6 @@ const Game = {
 
             await Game.updateGameData(roomId, this.io);
         }
-    
     },
     
     async look(data) {
@@ -125,7 +126,6 @@ const Game = {
 
         money = Math.min(Math.max(nowGame.min, money), nowGame.max);
         
-    
         if(userData.money >= money) {
             global.__users = global.__users.update(userId, info => {
                 

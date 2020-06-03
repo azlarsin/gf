@@ -35,7 +35,7 @@ module.exports =  async io => {
 
             if(prop === 'activeId' && value !== oldValue) {
                 io.in('HALL').emit('GAME_TURN', { userId: value });
-            }else {
+            } else {
                 // io.in('HALL').emit('msg', {
                 //     userId: 'sys',
                 //     text: `当前底：${obj.stake * Math.pow(2, obj.double)}\r\n当前奖池：${obj.pool}`
